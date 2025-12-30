@@ -1,0 +1,73 @@
+/* ===== Dashboard Page ===== */
+.dashboard-page {
+  min-height: 100vh;
+  background: #f4f6fb;
+  padding: 40px 20px;
+}
+
+/* ===== Wrapper ===== */
+.dashboard-wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== Header ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h2 {
+  font-size: 28px;
+}
+
+/* ===== Top Cards ===== */
+.dashboard-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* ===== Form Card ===== */
+.form-card input {
+  margin-bottom: 12px;
+}
+
+/* ===== Trips Section ===== */
+.trips-section h3 {
+  margin-bottom: 14px;
+}
+
+/* ===== Trips Grid ===== */
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* ===== Trip Card ===== */
+.trip-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+.trip-card h4 {
+  margin-bottom: 6px;
+}
+
+.trip-meta {
+  color: #6b7280;
+  font-size: 14px;
+}
