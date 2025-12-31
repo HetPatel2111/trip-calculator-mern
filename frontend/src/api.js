@@ -4,6 +4,7 @@ const API = axios.create({
   //baseURL: "http://localhost:5000/api"
   baseURL: "https://trip-backend.onrender.com/api"
 
+
 });
 
 API.interceptors.request.use((req) => {

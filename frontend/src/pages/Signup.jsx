@@ -5,6 +5,7 @@ import API from "../api";
 function Signup() {
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,8 +13,8 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert("Email and password required");
+    if (!name || !email || !password) {
+      alert("All fields are required");
       return;
     }
 
@@ -21,6 +22,7 @@ function Signup() {
       setLoading(true);
 
       await API.post("/auth/register", {
+        name,       // ✅ matches backend
         email,
         password
       });
@@ -44,6 +46,13 @@ function Signup() {
         <h2>Signup</h2>
 
         <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
           <input
             type="email"
             placeholder="Email"
