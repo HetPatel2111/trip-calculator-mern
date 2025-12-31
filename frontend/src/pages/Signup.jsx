@@ -1,61 +1,68 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
-import "../styles/login.css"; // reuse same CSS
 
 function Signup() {
-  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = async () => {
-    if (!name || !email || !password) {
-      setError("All fields are required");
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("Email and password required");
       return;
     }
 
     try {
-      await API.post("/register", {
-        name,
+      setLoading(true);
+
+      await API.post("/auth/register", {
         email,
         password
       });
 
-      alert("Registration successful. Please login.");
-      window.location.href = "/";
+      alert("Signup successful. Please login.");
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Signup failed");
+      console.error(err);
+      alert(
+        err.response?.data?.message ||
+          "Signup failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Sign Up</h2>
+    <div className="page">
+      <div className="card" style={{ maxWidth: "400px", width: "100%" }}>
+        <h2>Signup</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSignup}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <input
-        type="text"
-        placeholder="Full Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button onClick={handleSignup}>Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Signing up..." : "Signup"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
