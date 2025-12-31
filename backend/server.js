@@ -3,21 +3,29 @@ const express = require("express");
 const mongoose = require("mongoose");
 //const cors = require("cors");
 
-const authRoutes = require("./routes/authRoutes");
-const expenseRoutes = require("./routes/expenseRoutes");
-const tripRoutes = require("./routes/tripRoutes");
-
 const app = express();
-
 app.use(cors({
-  origin: "*",
+  origin: [
+    "http://localhost:5173",
+    "https://trip-calculator-mern.netlify.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+app.use(express.json());
+
+
+const authRoutes = require("./routes/authRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
+const tripRoutes = require("./routes/tripRoutes");
+
+
+
+
 
 //app.use(cors());
-app.use(express.json());
+
 
 
 
@@ -26,7 +34,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.use("/api", authRoutes);
+app.use("/api/auth/register", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/trips", tripRoutes);
 
